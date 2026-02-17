@@ -1,12 +1,10 @@
-@extends('layouts.app')
-
-@section('content')
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Game Store — Registrar Producto</title>
+  <title>Game Store — Catálogo de Videojuegos</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     /* ===================== VARIABLES & RESET ===================== */
@@ -144,7 +142,7 @@
       z-index: 1;
     }
     .container {
-      max-width: 860px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 40px 24px 60px;
     }
@@ -166,134 +164,117 @@
       background: var(--border);
     }
 
-    /* ===================== FORM ===================== */
-    .form-section {
+    /* ===================== PRODUCT CARDS ===================== */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+    .product-card {
       background: var(--card);
       border: 1px solid var(--border);
-      padding: 40px;
       position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      animation: fadeIn 0.6s ease both;
     }
-    .form-section::before {
+    .product-card:nth-child(1) { animation-delay: 0.05s; }
+    .product-card:nth-child(2) { animation-delay: 0.1s; }
+    .product-card:nth-child(3) { animation-delay: 0.15s; }
+    .product-card:nth-child(4) { animation-delay: 0.2s; }
+    .product-card:nth-child(5) { animation-delay: 0.25s; }
+    .product-card:nth-child(6) { animation-delay: 0.3s; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .product-card::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 2px;
-      background: linear-gradient(90deg, var(--accent2), var(--accent3), var(--accent));
+      background: linear-gradient(90deg, var(--accent3), var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s;
     }
-    .form-title {
+    .product-card:hover { transform: translateY(-4px); border-color: rgba(0,245,212,0.3); }
+    .product-card:hover::before { opacity: 1; }
+
+    .card-header {
+      padding: 20px 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .product-number {
+      font-family: 'Orbitron', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 2px;
+    }
+    .product-badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 2px;
+    }
+    .badge-ps { background: rgba(0,100,210,0.3); color: #4da6ff; border: 1px solid rgba(0,100,210,0.4); }
+    .badge-xbox { background: rgba(16,150,36,0.3); color: #5ddf75; border: 1px solid rgba(16,150,36,0.4); }
+    .badge-nintendo { background: rgba(230,0,18,0.3); color: #ff6b7a; border: 1px solid rgba(230,0,18,0.4); }
+    .badge-pc { background: rgba(123,45,255,0.3); color: #b07aff; border: 1px solid rgba(123,45,255,0.4); }
+    .badge-multi { background: rgba(247,37,133,0.2); color: #f872b0; border: 1px solid rgba(247,37,133,0.4); }
+
+    .card-body { padding: 16px 24px; }
+    .product-name {
       font-family: 'Orbitron', monospace;
       font-size: 1rem;
       font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
       color: #fff;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
+      letter-spacing: 1px;
     }
-    .form-subtitle {
+    .product-brand {
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .product-desc {
       font-size: 0.9rem;
       color: var(--muted);
-      margin-bottom: 32px;
-      letter-spacing: 0.5px;
+      line-height: 1.6;
     }
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .form-group {
+    .card-footer {
+      padding: 16px 24px 20px;
       display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .form-group.full { grid-column: 1 / -1; }
-    label {
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 600;
-    }
-    input, select, textarea {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1rem;
-      padding: 12px 16px;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      width: 100%;
-    }
-    input::placeholder, textarea::placeholder { color: #374151; }
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px var(--accent), inset 0 0 20px rgba(0,245,212,0.03);
-    }
-    select {
-      appearance: none;
-      cursor: pointer;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-      padding-right: 40px;
-    }
-    select option { background: var(--surface); }
-    textarea { resize: vertical; min-height: 110px; }
-    .form-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 28px;
-    }
-    .btn-submit {
-      background: linear-gradient(135deg, var(--accent3), var(--accent));
-      border: none;
-      color: var(--bg);
-      font-family: 'Orbitron', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      padding: 14px 32px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .btn-submit:hover {
-      box-shadow: 0 0 30px rgba(0,245,212,0.4);
-      transform: translateY(-2px);
-    }
-    .btn-reset {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-family: 'Orbitron', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      padding: 14px 24px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-reset:hover { border-color: var(--muted); color: var(--text); }
-    .btn-back {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-family: 'Orbitron', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 14px 24px;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-      margin-left: auto;
+      border-top: 1px solid var(--border);
     }
-    .btn-back:hover { border-color: var(--accent); color: var(--accent); }
+    .product-price {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--accent);
+      text-shadow: var(--glow);
+    }
+    .btn-add {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-add:hover { background: var(--accent); color: var(--bg); box-shadow: var(--glow); }
 
     /* ===================== TOAST ===================== */
     .toast {
@@ -322,6 +303,7 @@
       background: var(--surface);
       border-top: 1px solid var(--border);
       padding: 30px 24px;
+      text-align: center;
     }
     footer::before {
       content: '';
@@ -366,109 +348,49 @@
     .footer-links a:hover { color: var(--accent); }
 
     @media (max-width: 640px) {
-      .form-grid { grid-template-columns: 1fr; }
-      .form-section { padding: 24px; }
+      .products-grid { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; text-align: center; }
       .nav-stat { display: none; }
-      .form-actions { flex-wrap: wrap; }
-      .btn-back { margin-left: 0; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="hero-badge">&#9654; GAME STORE</div>
+    <h1>CATÁLOGO<br>DE VIDEOJUEGOS</h1>
+    <p>Explora los mejores títulos del universo gamer</p>
+  </header>
 
-  <!-- ===== MAIN ===== -->
-  <main>
-    <div class="container">
-      <div class="section-label">&#9632; Registrar nuevo producto</div>
+  <!-- ===== NAVBAR ===== -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-link active">
+        <span class="icon">&#9776;</span> Catálogo
+      </a>
+      <a href="formulario.html" class="nav-link">
+        <span class="icon">&#43;</span> Registrar Producto
+      </a>
+      <div class="nav-spacer"></div>
+      <div class="nav-stat">Productos: <span>06</span></div>
+    </div>
+  </nav>
 
-      <div class="form-section">
-        <div class="form-title">Nuevo Producto</div>
-        <div class="form-subtitle">Completa los campos para agregar un videojuego al catálogo.</div>
+  @yield('content')
 
-        <form id="productForm" onsubmit="handleSubmit(event)">
-          <div class="form-grid">
-
-            <div class="form-group">
-              <label for="nombre">Nombre del Producto</label>
-              <input type="text" id="nombre" name="nombre" placeholder="Ej: Spider-Man 2" required>
-            </div>
-
-            <div class="form-group">
-              <label for="marca">Marca / Desarrolladora</label>
-              <input type="text" id="marca" name="marca" placeholder="Ej: Insomniac Games" required>
-            </div>
-
-            <div class="form-group">
-              <label for="precio">Precio (COP)</label>
-              <input type="number" id="precio" name="precio" placeholder="Ej: 249900" min="0" required>
-            </div>
-
-            <div class="form-group">
-              <label for="plataforma">Plataforma</label>
-              <select id="plataforma" name="plataforma" required>
-                <option value="" disabled selected>Seleccionar plataforma</option>
-                <option value="ps5">PlayStation 5</option>
-                <option value="ps4">PlayStation 4</option>
-                <option value="xbox-series">Xbox Series X/S</option>
-                <option value="xbox-one">Xbox One</option>
-                <option value="nintendo-switch">Nintendo Switch</option>
-                <option value="pc">PC (Steam / Epic)</option>
-                <option value="multi">Multiplataforma</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="genero">Género</label>
-              <select id="genero" name="genero">
-                <option value="" disabled selected>Seleccionar género</option>
-                <option>Acción / Aventura</option>
-                <option>RPG</option>
-                <option>Shooter</option>
-                <option>Plataformas</option>
-                <option>Estrategia</option>
-                <option>Deportes</option>
-                <option>Terror</option>
-                <option>Simulación</option>
-                <option>Peleas</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="año">Año de Lanzamiento</label>
-              <input type="number" id="año" name="año" placeholder="Ej: 2024" min="1970" max="2030">
-            </div>
-
-            <div class="form-group full">
-              <label for="descripcion">Descripción Breve</label>
-              <textarea id="descripcion" name="descripcion" placeholder="Describe el juego en pocas palabras..." required></textarea>
-            </div>
-
-          </div>
-
-          <div class="form-actions">
-            <button type="submit" class="btn-submit">Registrar Producto</button>
-            <button type="reset" class="btn-reset">Limpiar</button>
-            <a href="index.html" class="btn-back">&#8592; Volver</a>
-          </div>
-        </form>
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">&#9654; GAME STORE</div>
+      <div class="footer-copy">&copy; 2024 Game Store. Todos los derechos reservados.</div>
+      <div class="footer-links">
+        <a href="index.html">Catálogo</a>
+        <a href="formulario.html">Registrar</a>
       </div>
     </div>
-  </main>
+  </footer>
 
 
-  <!-- ===== TOAST ===== -->
-  <div class="toast" id="toast">&#10003; PRODUCTO REGISTRADO</div>
-
-  <script>
-    function handleSubmit(e) {
-      e.preventDefault();
-      const toast = document.getElementById('toast');
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 3000);
-      e.target.reset();
-    }
-  </script>
-
-@endsection
+</body>
+</html>
