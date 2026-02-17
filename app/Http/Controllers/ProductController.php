@@ -8,12 +8,12 @@ class ProductController extends Controller
 {
     public function index(){
 
-        return "LISTADO DE PRODUCTOS";
+        return view('product.index');
     }
 
     public function create(){
 
-        return "CREAR PRODUCTO";
+        return view('product.create');
 
     }
 
