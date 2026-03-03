@@ -2,49 +2,47 @@
 
 @section('content')
 
-  <!-- ===== MAIN ===== -->
-  <main>
-    <div class="container">
-      <div class="section-label">&#9632; Todos los productos</div>
+    <!-- ===== MAIN ===== -->
+    <main>
+        <div class="container">
+            <div class="section-label">&#9632; Todos los productos</div>
 
-      <div class="products-grid">
+            <div class="products-grid">
 
-        @foreach ($miLista as $product)  
-
-        <div class="product-card">
-          <div class="card-header">
-            <img class="card-img" src="https://juegosdigitalescolombia.com/files/images/productos/1764614734-god-of-war-ragnarok-ps4-0.webp" alt="God of War">
-            <span class="product-number">PRD-001</span>
-            <span class="product-badge badge-ps">PlayStation</span>
-          </div>
-          <div class="card-body">
-            <div class="product-name">{{ $product->name}}</div>
-            <div class="product-brand">Sony Interactive Entertainment</div>
-            <div class="product-desc">{{ $product->desciption }}</div>
-          </div>
-          <div class="card-footer">
-            <span class="product-price">{{ $product->price }}</span>
-            <button class="btn-add">+ Agregar</button>
-          </div>
-
-          @endforeach
-
+                @foreach ($miLista as $product)
+                    <div class="product-card">
+                        <div class="card-header">
+                            <img class="card-img"
+                                src="https://juegosdigitalescolombia.com/files/images/productos/1764614734-god-of-war-ragnarok-ps4-0.webp"
+                                alt="God of War">
+                            <span class="product-number">PRD-001</span>
+                            <span class="product-badge badge-ps">PlayStation</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="product-name">{{ $product->name }}</div>
+                            <div class="product-brand">Sony Interactive Entertainment</div>
+                            <div class="product-desc">{{ $product->desciption }}</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="product-price">{{ $product->price }}</span>
+                            <button class="btn-add">+ Agregar</button>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
-      </div>
-    </div>
-  </main>
+    </main>
 
-  <!-- ===== TOAST ===== -->
-  <div class="toast" id="toast">&#10003; AÑADIDO AL CARRITO</div>
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast">&#10003; AÑADIDO AL CARRITO</div>
 
-  <script>
-    document.querySelectorAll('.btn-add').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const toast = document.getElementById('toast');
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
-      });
-    });
-  </script>
-
+    <script>
+        document.querySelectorAll('.btn-add').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            });
+        });
+    </script>
 @endsection

@@ -387,57 +387,29 @@
         <div class="form-title">Nuevo Producto</div>
         <div class="form-subtitle">Completa los campos para agregar un videojuego al catálogo.</div>
 
-        <form id="productForm" onsubmit="handleSubmit(event)">
+        <form id="productForm" onsubmit="handleSubmit(event)" action= '{{ route(name: 'product.store') }}' method='POST'>
+          @csrf
           <div class="form-grid">
 
             <div class="form-group">
               <label for="nombre">Nombre del Producto</label>
-              <input type="text" id="nombre" name="nombre" placeholder="Ej: Spider-Man 2" required>
-            </div>
-
-            <div class="form-group">
-              <label for="marca">Marca / Desarrolladora</label>
-              <input type="text" id="marca" name="marca" placeholder="Ej: Insomniac Games" required>
+              <input type="text" id="nombre" name="nombre" placeholder="Ej: Spider-Man 2" >
             </div>
 
             <div class="form-group">
               <label for="precio">Precio (COP)</label>
-              <input type="number" id="precio" name="precio" placeholder="Ej: 249900" min="0" required>
+              <input type="number" id="precio" name="precio" placeholder="Ej: 249900" min="0" >
             </div>
 
             <div class="form-group">
-              <label for="plataforma">Plataforma</label>
-              <select id="plataforma" name="plataforma" required>
-                <option value="" disabled selected>Seleccionar plataforma</option>
-                <option value="ps5">PlayStation 5</option>
-                <option value="ps4">PlayStation 4</option>
-                <option value="xbox-series">Xbox Series X/S</option>
-                <option value="xbox-one">Xbox One</option>
-                <option value="nintendo-switch">Nintendo Switch</option>
-                <option value="pc">PC (Steam / Epic)</option>
-                <option value="multi">Multiplataforma</option>
+              <label for="estado">Categoria</label>
+              <select name="categoria" >
+                  @foreach ($myCategories as $category)
+                      <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    
+                  @endforeach
+
               </select>
-            </div>
-
-            <div class="form-group">
-              <label for="genero">Género</label>
-              <select id="genero" name="genero">
-                <option value="" disabled selected>Seleccionar género</option>
-                <option>Acción / Aventura</option>
-                <option>RPG</option>
-                <option>Shooter</option>
-                <option>Plataformas</option>
-                <option>Estrategia</option>
-                <option>Deportes</option>
-                <option>Terror</option>
-                <option>Simulación</option>
-                <option>Peleas</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="año">Año de Lanzamiento</label>
-              <input type="number" id="año" name="año" placeholder="Ej: 2024" min="1970" max="2030">
             </div>
 
             <div class="form-group full">
@@ -458,17 +430,5 @@
   </main>
 
 
-  <!-- ===== TOAST ===== -->
-  <div class="toast" id="toast">&#10003; PRODUCTO REGISTRADO</div>
-
-  <script>
-    function handleSubmit(e) {
-      e.preventDefault();
-      const toast = document.getElementById('toast');
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 3000);
-      e.target.reset();
-    }
-  </script>
 
 @endsection
