@@ -387,7 +387,7 @@
         <div class="form-title">Nuevo Producto</div>
         <div class="form-subtitle">Completa los campos para agregar un videojuego al catálogo.</div>
 
-        <form id="productForm" onsubmit="handleSubmit(event)" action= '{{ route(name: 'product.store') }}' method='POST'>
+        <form id="productForm" onsubmit="handleSubmit(event)" action= '{{ route(name: 'product.store') }}' method='POST', enctype="multipart/form-data"">
           @csrf
           <div class="form-grid">
 
@@ -399,6 +399,11 @@
             <div class="form-group">
               <label for="precio">Precio (COP)</label>
               <input type="number" id="precio" name="precio" placeholder="Ej: 249900" min="0" >
+            </div>
+
+            <div class="form-group">
+              <label for="imagen">Imagen del Producto</label>
+              <input type="file" id="imagen" name="imagen">
             </div>
 
             <div class="form-group">

@@ -13,8 +13,7 @@
                     <div class="product-card">
                         <div class="card-header">
                             <img class="card-img"
-                                src="https://juegosdigitalescolombia.com/files/images/productos/1764614734-god-of-war-ragnarok-ps4-0.webp"
-                                alt="God of War">
+                                src="{{ asset('storage/'.$product->image) }}" alt="">
                             <span class="product-number">PRD-001</span>
                             <span class="product-badge badge-ps">PlayStation</span>
                         </div>
