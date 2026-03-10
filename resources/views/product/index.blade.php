@@ -7,6 +7,10 @@
         <div class="container">
             <div class="section-label">&#9632; Todos los productos</div>
 
+            <br>
+            {{ $miLista->links('pagination::simple-default') }}
+            <br>
+
             <div class="products-grid">
 
                 @foreach ($miLista as $product)
@@ -25,6 +29,11 @@
                         <div class="card-footer">
                             <span class="product-price">{{ $product->price }}</span>
                             <button class="btn-add">+ Agregar</button>
+                            <form action="{{route('product.destroy', $product) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn-remove">- Eliminar</button>
+                            </form>
                         </div>
                     </div>
                 @endforeach

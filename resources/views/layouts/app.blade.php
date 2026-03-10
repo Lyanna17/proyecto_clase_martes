@@ -366,10 +366,14 @@
   <!-- ===== NAVBAR ===== -->
   <nav>
     <div class="nav-inner">
-      <a href="index.html" class="nav-link active">
+      <a href="{{ route('product.index') }}" class="nav-link @if (request()->is('product'))
+    active
+@endif ">
         <span class="icon">&#9776;</span> Catálogo
       </a>
-      <a href="formulario.html" class="nav-link">
+      <a href="{{ route('product.create') }}" class="nav-link @if (request()->is('product/create'))
+    active
+@endif">
         <span class="icon">&#43;</span> Registrar Producto
       </a>
       <div class="nav-spacer"></div>
