@@ -295,26 +295,6 @@
     }
     .btn-back:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* ===================== TOAST ===================== */
-    .toast {
-      position: fixed;
-      bottom: 30px; right: 30px;
-      background: var(--card);
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      font-family: 'Orbitron', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      padding: 14px 24px;
-      box-shadow: var(--glow);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.3s;
-      pointer-events: none;
-      z-index: 999;
-    }
-    .toast.show { opacity: 1; transform: translateY(0); }
-
     /* ===================== FOOTER ===================== */
     footer {
       position: relative;
@@ -383,6 +363,18 @@
     <div class="container">
       <div class="section-label">&#9632; Registrar nuevo producto</div>
 
+      <br>
+
+      @if ($errors->any())
+        <div style="color: red">
+          @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+          @endforeach
+        </div>  
+      @endif
+
+      <br>
+
       <div class="form-section">
         <div class="form-title">Nuevo Producto</div>
         <div class="form-subtitle">Completa los campos para agregar un videojuego al catálogo.</div>
@@ -393,12 +385,12 @@
 
             <div class="form-group">
               <label for="nombre">Nombre del Producto</label>
-              <input type="text" id="nombre" name="nombre" placeholder="Ej: Spider-Man 2" >
+              <input value='{{ old('nombre') }}'type="text" id="nombre" name="nombre" placeholder="Ej: Spider-Man 2" >
             </div>
 
             <div class="form-group">
               <label for="precio">Precio (COP)</label>
-              <input type="number" id="precio" name="precio" placeholder="Ej: 249900" min="0" >
+              <input value='{{ old('precio') }}' type="number" id="precio" name="precio" placeholder="Ej: 249900" min="0" >
             </div>
 
             <div class="form-group">
@@ -419,7 +411,7 @@
 
             <div class="form-group full">
               <label for="descripcion">Descripción Breve</label>
-              <textarea id="descripcion" name="descripcion" placeholder="Describe el juego en pocas palabras..." required></textarea>
+              <textarea id="descripcion" name="descripcion" placeholder="Describe el juego en pocas palabras..."> value='{{ old('descripcion') }}' </textarea>
             </div>
 
           </div>
