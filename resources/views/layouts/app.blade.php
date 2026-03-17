@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Game Store — Catálogo de Videojuegos</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
@@ -365,6 +366,12 @@
 
   <!-- ===== NAVBAR ===== -->
   <nav>
+    <div class="nav-cart">
+      <a href="{{ route('cart.index') }}" 
+      class="nav-link">🛒 {{ session('cart', []) ? array_sum(array_column(session('cart'), 
+      'quantity')) : 0 }}
+      </a>
+    </div>
     <div class="nav-inner">
       <a href="{{ route('product.index') }}" class="nav-link @if (request()->is('product'))
     active
@@ -395,6 +402,64 @@
     </div>
   </footer>
 
+  <script>
+  function addToCart(productId) {
+    // Mostrar loading
+    const btn = event.target;
+    btn.textContent = '⏳ Agregando...';
+    btn.disabled = true;
+    
+    fetch('/cart/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({ 
+            product_id: productId,
+            quantity: 1 
+        })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Error del servidor');
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            // Actualizar contador carrito en navbar
+            const cartLink = document.querySelector('.nav-cart a');
+            if (cartLink) cartLink.textContent = `🛒 ${data.total_items || 0}`;
+            
+            // Toast de éxito
+            showToast('¡Producto añadido al carrito!');
+        } else {
+            alert('Error: ' + (data.message || 'No se pudo agregar'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error de conexión. Intenta de nuevo.');
+    })
+    .finally(() => {
+        // Restaurar botón
+        btn.textContent = '► Comprar Ahora';
+        btn.disabled = false;
+    });
+}
+
+  function showToast(message) {
+    let toast = document.querySelector('.toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.className = 'toast';
+        document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+  </script>
 
 </body>
 </html>

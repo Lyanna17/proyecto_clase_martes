@@ -2,12 +2,10 @@
 
 @section('content')
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Game Store — {{ $product->name }}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+
+
   <style>
     /* ===================== VARIABLES & RESET ===================== */
     :root {
@@ -255,46 +253,6 @@
       border: 1px solid rgba(255,255,255,0.15);
       padding: 4px 10px;
     }
-
-    .img-scan {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      z-index: 4;
-      animation: scan 3s linear infinite;
-    }
-    @keyframes scan {
-      0% { top: 0; opacity: 1; }
-      90% { opacity: 1; }
-      100% { top: 100%; opacity: 0; }
-    }
-
-    /* Thumbnail strip */
-    .thumb-strip {
-      position: absolute;
-      bottom: 20px;
-      left: 0; right: 0;
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      z-index: 3;
-    }
-    .thumb {
-      width: 48px;
-      height: 32px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      cursor: pointer;
-      overflow: hidden;
-      transition: border-color 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
-    .thumb.active { border-color: var(--accent); box-shadow: 0 0 8px rgba(0,245,212,0.4); }
-    .thumb:hover { border-color: rgba(0,245,212,0.5); }
 
     /* Info Panel */
     .product-info-panel {
@@ -724,8 +682,7 @@
       .gallery-strip { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
-</head>
-<body>
+
 
 
 
@@ -782,7 +739,15 @@
 
 
           <div class="btn-group">
-            <button class="btn-buy" onclick="addToCart({{ $product->id }})">► Comprar Ahora</button>
+            <button class="btn-buy" 
+              onclick="addToCart({{ $product->id }})"
+              style="
+                cursor: pointer !important;
+                position: relative;
+                z-index: 10;
+              ">
+          ► Comprar Ahora
+          </button>
             <button class="btn-wishlist">&#9825;</button>
           </div>
 
@@ -856,7 +821,6 @@
     </div>
   </main>
 
-
-
+</body>
 
 @endsection

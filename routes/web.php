@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,13 @@ Route::prefix('product')->controller(ProductController::class)->group(function()
     Route::delete('/{product}', 'destroy')->name('product.destroy');
 
 });
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::delete('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::patch('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+
 
 
 
