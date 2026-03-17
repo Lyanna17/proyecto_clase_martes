@@ -105,6 +105,7 @@
       padding: 0 24px;
       display: flex;
       align-items: center;
+      justify-content: space-between
       gap: 4px;
     }
     .nav-link {
@@ -366,12 +367,7 @@
 
   <!-- ===== NAVBAR ===== -->
   <nav>
-    <div class="nav-cart">
-      <a href="{{ route('cart.index') }}" 
-      class="nav-link">🛒 {{ session('cart', []) ? array_sum(array_column(session('cart'), 
-      'quantity')) : 0 }}
-      </a>
-    </div>
+
     <div class="nav-inner">
       <a href="{{ route('product.index') }}" class="nav-link @if (request()->is('product'))
     active
@@ -384,7 +380,15 @@
         <span class="icon">&#43;</span> Registrar Producto
       </a>
       <div class="nav-spacer"></div>
-      <div class="nav-stat">Productos: <span>06</span></div>
+
+      <a href="{{ route('cart.index') }}" class="nav-link">
+          🛒 {{ session('cart', []) ? array_sum(array_column(session('cart'), 'quantity')) : 0 }}
+      </a>
+
+      <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->is('admin*') ? 'active' : '' }}">
+          ⚙️ Admin
+      </a>
+
     </div>
   </nav>
 
@@ -460,6 +464,22 @@
     setTimeout(() => toast.classList.remove('show'), 3000);
   }
   </script>
+
+  @auth
+  <div style="
+    position: fixed; top: 20px; right: 20px; z-index: 1000;
+    background: linear-gradient(135deg, #00f5d4, #7b2dff);
+    color: #0a0e1a; padding: 12px 16px; border-radius: 50px;
+    font-family: 'Orbitron', monospace; font-size: 0.8rem;
+    font-weight: 700; letter-spacing: 1px; text-decoration: none;
+    box-shadow: 0 10px 30px rgba(0,245,212,0.4);
+    transition: all 0.3s; cursor: pointer;
+  ">
+    <a href="{{ route('admin.dashboard') }}" style="color: inherit; text-decoration: none;">
+        ⚙️ PANEL ADMIN
+    </a>
+  </div>
+  @endauth
 
 </body>
 </html>

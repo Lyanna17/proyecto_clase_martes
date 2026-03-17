@@ -23,5 +23,6 @@ Route::patch('/cart/update', [CartController::class, 'update'])->name('cart.upda
 Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 
-
+Route::get('/admin/dashboard', function() {return view('admin.dashboard');})->name('admin.dashboard');
+Route::get('/admin/orders', function() {return view('admin.orders');})->name('admin.orders');
 
