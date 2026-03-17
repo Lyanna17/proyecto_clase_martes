@@ -7,9 +7,20 @@
         <div class="container">
             <div class="section-label">&#9632; Todos los productos</div>
 
-            <br>
-            {{ $miLista->links('pagination::simple-default') }}
-            <br>
+            <div style="display: flex; justify-content: center; gap: 20px; margin: 30px 0;">
+                @if($miLista->onFirstPage())
+                    <span style="background: var(--accent3); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600;">← Anterior</span>
+                @else
+                    <a href="{{ $miLista->previousPageUrl() }}" style="background: var(--accent3); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none;">← Anterior</a>
+                @endif
+    
+                @if($miLista->hasMorePages())
+                    <a href="{{ $miLista->nextPageUrl() }}" style="background: var(--accent); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none;">Siguiente →</a>
+                @else
+                    <span style="background: var(--accent3); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600;">Siguiente →</span>
+                @endif
+            </div>
+
 
             <div class="products-grid">
 
@@ -18,8 +29,7 @@
                     <a href="{{ url('/product/'.$product->id) }}" class="product-card-link">
                         <div class="product-card">
                             <div class="card-header">
-                                <img class="card-img"
-                                    src="{{ asset('storage/'.$product->image) }}" alt="">
+                                <img class="card-img" src="{{ asset('img/card.png') }}" alt="">
                                 <span class="product-number">PRD-001</span>
                                 <span class="product-badge badge-ps">PlayStation</span>
                             </div>

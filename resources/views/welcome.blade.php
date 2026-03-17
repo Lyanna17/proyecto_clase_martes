@@ -352,7 +352,7 @@
             @forelse($featured as $product)
                 <a href="{{ route('product.show', $product->id) }}" class="product-card">
                     <div class="card-header">
-                        <img class="card-img" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                        <img class="card-img" src="{{ asset('img/card.png') }}" alt="">
                         <span class="product-number">PRD-{{ str_pad($product->id, 3, '0', STR_PAD_LEFT) }}</span>
                         <span class="product-badge badge-ps">{{ $product->category->name ?? 'Gaming' }}</span>
                     </div>
@@ -408,7 +408,7 @@
                 <a href="{{ route('product.show', $product->id) }}" class="product-card">
                     <div class="deal-badge">-25%</div>
                     <div class="card-header">
-                        <img class="card-img" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                        <img class="card-img" src="{{ asset('img/card.png') }}" alt="">
                         <span class="product-number">PRD-{{ str_pad($product->id, 3, '0', STR_PAD_LEFT) }}</span>
                     </div>
                     <div class="card-body">

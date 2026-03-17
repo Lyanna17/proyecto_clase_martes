@@ -711,11 +711,7 @@
 
           <!-- Game Cover Art (SVG Illustration) -->
             <div class="cover-art">
-                <img 
-                    src="{{ asset('storage/' . $product->image) }}" 
-                    alt="{{ $product->name }}"
-                    style="width:100%; height:100%; object-fit:cover; display:block;"
-                >
+                <img class="card-img" src="{{ asset('img/card.png') }}" alt="">
             </div>
 
 

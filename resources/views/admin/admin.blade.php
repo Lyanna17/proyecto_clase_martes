@@ -135,8 +135,9 @@
             <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}"> <span class="icon">📊</span>Dashboard</a>
             <a href="{{ route('admin.orders') }}" class="nav-link {{ request()->is('admin/orders') ? 'active' : '' }}"> <span class="icon">🛒</span>Órdenes </a>
             <a href="#" class="nav-link"> <span class="icon">👤</span>Usuarios </a>
-            <a href="#" class="nav-link"> <span class="icon">📂</span>Categorías </a>
+            <a href="{{ route('admin.categories.index') }}" class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}"> <span class="icon">📂</span>Categorías </a>
             <a href="{{ route('product.index') }}" class="nav-link"> <span class="icon">🎮</span>Productos </a>
+            <a href="{{ route('admin.landing-pages.index') }}" class="nav-link {{ request()->routeIs('admin.landing-pages.*') ? 'active' : '' }}"> <span class="icon">🌐</span>Landing Pages </a>
         </nav>
     </aside>
 

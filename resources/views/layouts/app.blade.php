@@ -200,13 +200,22 @@
       transition: opacity 0.3s;
     }
     .product-card:hover { transform: translateY(-4px); border-color: rgba(0,245,212,0.3); }
-    .product-card:hover::before { opacity: 1; }
-
+    .product-card:hover::before { opacity: 1; 
+    }
+    .card-img {
+    width: 100%;
+    height: 200px; /* 👈 importante */
+    object-fit: cover; /* 👈 mantiene proporción */
+    border-radius: 10px;
+    }
     .card-header {
       padding: 20px 24px 0;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
     }
     .product-number {
       font-family: 'Orbitron', monospace;
