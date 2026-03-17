@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Game Store — God of War: Ragnarök</title>
+  <title>Game Store — {{ $product->name }}</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     /* ===================== VARIABLES & RESET ===================== */
@@ -734,9 +734,9 @@
     <div class="breadcrumb-inner">
       <a href="index.html">Inicio</a>
       <span class="breadcrumb-sep">/</span>
-      <a href="index.html">Catálogo</a>
+      <a href="{{ route('product.index') }}">Catálogo</a>
       <span class="breadcrumb-sep">/</span>
-      <span class="breadcrumb-current">God of War: Ragnarök</span>
+      <span class="breadcrumb-current">{{ $product->name }}</span>
     </div>
   </div>
 
@@ -750,79 +750,39 @@
         <!-- Left: Image Panel -->
         <div class="product-image-panel">
           <div class="img-scan"></div>
-          <div class="platform-logo">PS5 EXCLUSIVE</div>
+          <div class="platform-logo">PS5 {{ $product->category->name ?? 'GAME' }}</div>
 
           <!-- Game Cover Art (SVG Illustration) -->
             <div class="cover-art">
                 <img 
-                    src="https://juegosdigitalescolombia.com/files/images/productos/1764614734-god-of-war-ragnarok-ps4-0.webp" 
-                    alt="God of War Ragnarök - Portada oficial"
+                    src="{{ asset('storage/' . $product->image) }}" 
+                    alt="{{ $product->name }}"
                     style="width:100%; height:100%; object-fit:cover; display:block;"
                 >
             </div>
 
-          <!-- Thumbnail strip -->
-          <div class="thumb-strip">
-            <div class="thumb active">⚔️</div>
-            <div class="thumb">🪓</div>
-            <div class="thumb">🌍</div>
-            <div class="thumb">👥</div>
-          </div>
-        </div>
+
 
         <!-- Right: Product Info -->
         <div class="product-info-panel">
 
           <div class="product-meta-row">
-            <span class="meta-badge badge-ps">PlayStation 5</span>
-            <span class="meta-id">PRD-001</span>
+            <span class="meta-badge badge-ps">{{ $product->category->name ?? 'PlayStation' }}</span>
+            <span class="meta-id">PRD-{{ str_pad($product->id, 3, '0', STR_PAD_LEFT) }}</span>
             <div class="meta-rating">&#9733;&#9733;&#9733;&#9733;&#9733; <span style="color:var(--muted);margin-left:4px;font-size:0.65rem;">9.4</span></div>
           </div>
 
-          <div class="product-title">God of War:<br>Ragnarök</div>
-          <div class="product-subtitle">Sony Interactive Entertainment</div>
+          <div class="product-title">{{ $product->name }}</div>
+          <div class="product-subtitle">{{ $product->category->name ?? 'Gaming' }}</div>
 
           <div class="price-block">
-            <div class="price-main">$249.900</div>
-            <div class="price-original">$299.900</div>
-            <div class="price-discount">-17%</div>
+            <div class="price-main">${{ number_format($product->price, 0, ',', '.') }}</div>
           </div>
 
-          <div class="info-grid">
-            <div class="info-item">
-              <div class="info-label">Desarrollador</div>
-              <div class="info-value">Santa Monica Studio</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Editor</div>
-              <div class="info-value">Sony Interactive</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Lanzamiento</div>
-              <div class="info-value">Nov 9, 2022</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Género</div>
-              <div class="info-value">Acción / RPG</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Clasificación</div>
-              <div class="info-value">PEGI 18+</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Jugadores</div>
-              <div class="info-value">1 Jugador</div>
-            </div>
-          </div>
 
-          <div class="stock-indicator">
-            <div class="stock-dot"></div>
-            <span class="stock-text">En stock</span>
-            <span style="color:var(--muted);font-size:0.85rem;">— Entrega inmediata digital</span>
-          </div>
 
           <div class="btn-group">
-            <button class="btn-buy" onclick="addToCart()">&#9654; Comprar Ahora</button>
+            <button class="btn-buy" onclick="addToCart({{ $product->id }})">► Comprar Ahora</button>
             <button class="btn-wishlist">&#9825;</button>
           </div>
 
@@ -840,45 +800,9 @@
               <h3>Descripción del Juego</h3>
             </div>
             <div class="detail-card-body">
-              <p class="description-text">
-                God of War: Ragnarök es la épica continuación de la saga que redefine la narrativa en los videojuegos. Kratos y su hijo Atreus deben viajar a través de los Nueve Reinos en busca de respuestas mientras las fuerzas de Asgard se preparan para la guerra.
-              </p>
-              <p class="description-text">
-                Con un combate profundo y visceral, un diseño de mundos impresionante y actuaciones de voz de nivel cinematográfico, Ragnarök lleva la mitología nórdica a nuevas alturas. Enfréntate a dioses, gigantes y criaturas míticas en batallas que pondrán a prueba tu habilidad y estrategia.
-              </p>
-
-              <div class="feature-list">
-                <div class="feature-item">
-                  <span class="feature-icon">⚔️</span>
-                  <div class="feature-text"><strong>Combate evolucionado:</strong> Sistema de combate renovado con nuevas runas, habilidades y el arco de Atreus totalmente integrado al gameplay cooperativo.</div>
-                </div>
-                <div class="feature-item">
-                  <span class="feature-icon">🌍</span>
-                  <div class="feature-text"><strong>9 Reinos por explorar:</strong> Visita todos los reinos de la mitología nórdica, incluyendo Asgard, Vanaheim y Svartalfheim por primera vez.</div>
-                </div>
-                <div class="feature-item">
-                  <span class="feature-icon">📖</span>
-                  <div class="feature-text"><strong>Narrativa épica:</strong> Una historia emocionalmente devastadora sobre paternidad, identidad y el peso del destino con +40 horas de contenido.</div>
-                </div>
-                <div class="feature-item">
-                  <span class="feature-icon">🎮</span>
-                  <div class="feature-text"><strong>Tecnología PS5:</strong> Retroalimentación háptica del DualSense, carga ultra rápida, ray tracing y resolución 4K a 60 FPS.</div>
-                </div>
-              </div>
+              <p class="description-text">{{ $product->desciption }}</p>
             </div>
           </div>
-
-          <!-- Gallery -->
-          <div class="gallery-section">
-            <div class="gallery-label">&#9632; Galería del juego</div>
-            <div class="gallery-strip">
-              <div class="gallery-item">⚔️</div>
-              <div class="gallery-item">🪓</div>
-              <div class="gallery-item">🌋</div>
-              <div class="gallery-item">🐺</div>
-            </div>
-          </div>
-        </div>
 
         <!-- Right: Specs + Scores -->
         <div style="display:flex;flex-direction:column;gap:24px;">
@@ -925,51 +849,7 @@
               </table>
             </div>
           </div>
-
-          <div class="detail-card">
-            <div class="detail-card-header">
-              <div class="dot"></div>
-              <h3>Puntuaciones</h3>
-            </div>
-            <div class="detail-card-body">
-              <div class="score-item">
-                <div class="score-label-row">
-                  <span class="score-label">Jugabilidad</span>
-                  <span class="score-value">9.5</span>
-                </div>
-                <div class="score-bar-bg"><div class="score-bar-fill" style="width:95%"></div></div>
-              </div>
-              <div class="score-item">
-                <div class="score-label-row">
-                  <span class="score-label">Gráficos</span>
-                  <span class="score-value">9.8</span>
-                </div>
-                <div class="score-bar-bg"><div class="score-bar-fill" style="width:98%"></div></div>
-              </div>
-              <div class="score-item">
-                <div class="score-label-row">
-                  <span class="score-label">Historia</span>
-                  <span class="score-value">9.6</span>
-                </div>
-                <div class="score-bar-bg"><div class="score-bar-fill" style="width:96%"></div></div>
-              </div>
-              <div class="score-item">
-                <div class="score-label-row">
-                  <span class="score-label">Sonido</span>
-                  <span class="score-value">9.2</span>
-                </div>
-                <div class="score-bar-bg"><div class="score-bar-fill" style="width:92%"></div></div>
-              </div>
-              <div class="score-item">
-                <div class="score-label-row">
-                  <span class="score-label">Duración</span>
-                  <span class="score-value">9.0</span>
-                </div>
-                <div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div>
-              </div>
-            </div>
-          </div>
-
+          
         </div>
       </div>
 
@@ -977,23 +857,6 @@
   </main>
 
 
-  <!-- ===== TOAST ===== -->
-  <div class="toast" id="toast">&#10003; AÑADIDO AL CARRITO</div>
 
-  <script>
-    function addToCart() {
-      const toast = document.getElementById('toast');
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2500);
-    }
-
-    // Thumbnail interaction
-    document.querySelectorAll('.thumb').forEach(t => {
-      t.addEventListener('click', () => {
-        document.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
-        t.classList.add('active');
-      });
-    });
-  </script>
 
 @endsection

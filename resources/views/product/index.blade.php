@@ -14,6 +14,7 @@
             <div class="products-grid">
 
                 @foreach ($miLista as $product)
+                <a href="{{ url('/product/'.$product->id) }}">
                     <div class="product-card">
                         <div class="card-header">
                             <img class="card-img"
@@ -36,21 +37,11 @@
                             </form>
                         </div>
                     </div>
+                </a>
                 @endforeach
             </div>
         </div>
     </main>
 
-    <!-- ===== TOAST ===== -->
-    <div class="toast" id="toast">&#10003; AÑADIDO AL CARRITO</div>
 
-    <script>
-        document.querySelectorAll('.btn-add').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const toast = document.getElementById('toast');
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 2000);
-            });
-        });
-    </script>
 @endsection
